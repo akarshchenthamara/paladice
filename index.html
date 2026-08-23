@@ -1,0 +1,46 @@
+<!--
+Save the attached image as: assets/logo.png
+I couldn't access the binary image from this message, so please add the attached picture to the repository at the path above.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paladice</title>
+  <style>
+    :root{ --bg:#faf7f5; --card:#fff; --accent:#b37d67; --muted:#6b6b6b }
+    html,body{height:100%;margin:0;font-family:Inter, Roboto, -apple-system, "Segoe UI", sans-serif;background:var(--bg);color:#222}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:48px}
+    .card{background:var(--card);border-radius:14px;box-shadow:0 8px 30px rgba(18,18,18,0.08);padding:48px;max-width:920px;width:100%;text-align:center}
+    .logo{max-width:420px;width:60%;height:auto;margin:0 auto 18px;display:block}
+    h1{font-size:2.4rem;margin:0 0 6px;color:#222;letter-spacing:0.4px}
+    p.lead{margin:0;color:var(--muted);font-size:1.05rem}
+    .cta{margin-top:20px}
+    .btn{background:linear-gradient(180deg,var(--accent),#8f5f4a);color:white;padding:10px 18px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
+    footer{margin-top:26px;color:#9a9a9a;font-size:0.9rem}
+    @media (max-width:600px){.logo{width:80%}.card{padding:28px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <!-- Put the provided image file at assets/logo.png -->
+      <img src="assets/logo.png" alt="Paladice logo" class="logo" onerror="this.style.display='none'" />
+
+      <!-- Fallback heading in case the image isn't present -->
+      <h1>Paladice</h1>
+      <p class="lead">A simple placeholder homepage. Replace this content with your site copy.</p>
+
+      <div class="cta">
+        <button class="btn" onclick="alert('Welcome to Paladice!')">Explore</button>
+      </div>
+
+      <footer>
+        Tip: Save the attached picture as <code>assets/logo.png</code> so it appears above.
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
