@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Paladice - An Adicts Venture</title>
+  <title>Pāladice - An Adicts Venture</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -16,7 +16,7 @@
     html, body {
       height: 100%;
       font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #f5e6d3 0%, #f0dcc8 25%, #f8ead8 50%, #f2dfc5 75%, #f5e6d3 100%);
+      background: linear-gradient(135deg, #e8dcc8 0%, #d9cdb5 25%, #e5d9c7 50%, #d4c5b0 75%, #e8dcc8 100%);
       background-attachment: fixed;
       color: #222;
       line-height: 1.6;
@@ -26,21 +26,38 @@
       content: "";
       position: fixed;
       top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background-image: url('samplev2.png');
+      background-attachment: fixed;
+      background-position: right center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
       left: 0;
       right: 0;
       bottom: 0;
       background-image: 
         repeating-linear-gradient(
           90deg,
-          rgba(200, 170, 130, 0.03) 0px,
-          rgba(200, 170, 130, 0.03) 2px,
+          rgba(160, 130, 90, 0.03) 0px,
+          rgba(160, 130, 90, 0.03) 2px,
           transparent 2px,
           transparent 4px
         ),
         repeating-linear-gradient(
           0deg,
-          rgba(180, 150, 110, 0.02) 0px,
-          rgba(180, 150, 110, 0.02) 2px,
+          rgba(140, 110, 70, 0.02) 0px,
+          rgba(140, 110, 70, 0.02) 2px,
           transparent 2px,
           transparent 4px
         );
@@ -53,7 +70,7 @@
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(245, 230, 211, 0.92);
+      background: rgba(232, 220, 200, 0.92);
       backdrop-filter: blur(10px);
       z-index: 100;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -72,7 +89,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.8rem;
       font-weight: 700;
-      color: #b37d67;
+      color: #8b6f47;
       text-decoration: none;
       letter-spacing: 0.02em;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -93,11 +110,11 @@
     }
 
     .nav-links a:hover {
-      color: #b37d67;
+      color: #8b6f47;
     }
 
     .cta-button {
-      background: #b37d67;
+      background: #8b6f47;
       color: white;
       padding: 10px 24px;
       border-radius: 6px;
@@ -109,7 +126,7 @@
     }
 
     .cta-button:hover {
-      background: #a06d57;
+      background: #7a5f3f;
     }
 
     /* Hero Section */
@@ -134,7 +151,7 @@
     }
 
     .hero-subtitle {
-      color: #b37d67;
+      color: #8b6f47;
       font-size: 0.95rem;
       font-weight: 600;
       text-transform: uppercase;
@@ -178,24 +195,24 @@
     }
 
     .btn-primary {
-      background: #b37d67;
+      background: #8b6f47;
       color: white;
     }
 
     .btn-primary:hover {
-      background: #a06d57;
+      background: #7a5f3f;
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(179, 125, 103, 0.3);
+      box-shadow: 0 8px 20px rgba(139, 111, 71, 0.3);
     }
 
     .btn-secondary {
       background: transparent;
-      color: #b37d67;
-      border: 2px solid #b37d67;
+      color: #8b6f47;
+      border: 2px solid #8b6f47;
     }
 
     .btn-secondary:hover {
-      background: #b37d67;
+      background: #8b6f47;
       color: white;
     }
 
@@ -209,19 +226,19 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-      background: linear-gradient(135deg, #f5e6d3 0%, #f8ead8 100%);
+      background: linear-gradient(135deg, #e8dcc8 0%, #e5d9c7 100%);
     }
 
     .hero-image img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      background: linear-gradient(135deg, #f5e6d3 0%, #f8ead8 100%);
+      background: linear-gradient(135deg, #e8dcc8 0%, #e5d9c7 100%);
     }
 
     /* Featured Profile Section */
     .profile-section {
-      background: linear-gradient(135deg, #f5e6d3 0%, #f0dcc8 50%, #f8ead8 100%);
+      background: linear-gradient(135deg, #e8dcc8 0%, #d9cdb5 50%, #e5d9c7 100%);
       padding: 80px 24px;
       text-align: center;
       z-index: 1;
@@ -238,8 +255,8 @@
       background-image: 
         repeating-linear-gradient(
           90deg,
-          rgba(200, 170, 130, 0.03) 0px,
-          rgba(200, 170, 130, 0.03) 2px,
+          rgba(160, 130, 90, 0.03) 0px,
+          rgba(160, 130, 90, 0.03) 2px,
           transparent 2px,
           transparent 4px
         );
@@ -293,13 +310,13 @@
 
     .profile-text em {
       font-style: italic;
-      color: #b37d67;
+      color: #8b6f47;
     }
 
     /* Shop Section */
     .shop-section {
       padding: 80px 24px;
-      background: linear-gradient(135deg, #f5e6d3 0%, #f0dcc8 50%, #f8ead8 100%);
+      background: linear-gradient(135deg, #e8dcc8 0%, #d9cdb5 50%, #e5d9c7 100%);
       z-index: 1;
       position: relative;
     }
@@ -314,8 +331,8 @@
       background-image: 
         repeating-linear-gradient(
           90deg,
-          rgba(200, 170, 130, 0.03) 0px,
-          rgba(200, 170, 130, 0.03) 2px,
+          rgba(160, 130, 90, 0.03) 0px,
+          rgba(160, 130, 90, 0.03) 2px,
           transparent 2px,
           transparent 4px
         );
@@ -346,7 +363,7 @@
       overflow: hidden;
       transition: all 0.3s ease;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      border: 1px solid rgba(179, 125, 103, 0.1);
+      border: 1px solid rgba(139, 111, 71, 0.1);
     }
 
     .shop-card:hover {
@@ -359,7 +376,7 @@
       width: 100%;
       height: 240px;
       overflow: hidden;
-      background: linear-gradient(135deg, #f5e6d3 0%, #f8ead8 100%);
+      background: linear-gradient(135deg, #e8dcc8 0%, #e5d9c7 100%);
     }
 
     .shop-card-image img {
@@ -368,7 +385,7 @@
       object-fit: contain;
       padding: 12px;
       transition: transform 0.3s ease;
-      background: linear-gradient(135deg, #f5e6d3 0%, #f8ead8 100%);
+      background: linear-gradient(135deg, #e8dcc8 0%, #e5d9c7 100%);
     }
 
     .shop-card:hover .shop-card-image img {
@@ -396,19 +413,19 @@
 
     .shop-card-cta {
       display: inline-block;
-      color: #b37d67;
+      color: #8b6f47;
       text-decoration: none;
       font-weight: 600;
       transition: color 0.3s ease;
     }
 
     .shop-card-cta:hover {
-      color: #a06d57;
+      color: #7a5f3f;
     }
 
     /* About Section */
     .about-section {
-      background: linear-gradient(135deg, #f5e6d3 0%, #f0dcc8 50%, #f8ead8 100%);
+      background: linear-gradient(135deg, #e8dcc8 0%, #d9cdb5 50%, #e5d9c7 100%);
       color: #222;
       padding: 80px 24px;
       text-align: center;
@@ -426,8 +443,8 @@
       background-image: 
         repeating-linear-gradient(
           90deg,
-          rgba(200, 170, 130, 0.03) 0px,
-          rgba(200, 170, 130, 0.03) 2px,
+          rgba(160, 130, 90, 0.03) 0px,
+          rgba(160, 130, 90, 0.03) 2px,
           transparent 2px,
           transparent 4px
         );
@@ -464,7 +481,7 @@
     }
 
     footer a {
-      color: #b37d67;
+      color: #8b6f47;
       text-decoration: none;
     }
 
@@ -551,7 +568,7 @@
   <!-- Navigation -->
   <nav>
     <div class="nav-container">
-      <a href="/" class="logo">Paladice</a>
+      <a href="/" class="logo">Pāladice</a>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#shop">Shop</a></li>
@@ -564,8 +581,8 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
-      <p class="hero-subtitle">Adicts Venture</p>
-      <h1 class="hero-title">Welcome to Paladice</h1>
+      <p class="hero-subtitle">An Adicts Venture</p>
+      <h1 class="hero-title">Welcome to Pāladice</h1>
       <p class="hero-description">
         Discover a world of elegance and innovation. Our curated collection brings together the finest designs and premium quality crafted with passion.
       </p>
@@ -575,20 +592,20 @@
       </div>
     </div>
     <div class="hero-image">
-      <img src="Designer.png" alt="Paladice Designer Collection" />
+      <img src="Designer.png" alt="Pāladice Designer Collection" />
     </div>
   </section>
 
   <!-- Profile Section -->
   <section class="profile-section" id="about">
     <div class="profile-container">
-      <h2 class="section-title">About Paladice</h2>
-      <p class="section-subtitle">EST 2026 by Adicts Venture</p>
+      <h2 class="section-title">About Pāladice</h2>
+      <p class="section-subtitle">EST 2026 by An Adicts Venture</p>
       <div class="profile-image">
-        <img src="DP.png" alt="Paladice Profile" />
+        <img src="DP.png" alt="Pāladice Profile" />
       </div>
       <p class="profile-text">
-        We are <em>Paladice</em> — a venture dedicated to bringing sophistication and quality to every aspect of your lifestyle. From carefully curated products to exceptional experiences, we believe in the power of elegance.
+        We are <em>Pāladice</em> — a venture dedicated to bringing sophistication and quality to every aspect of your lifestyle. From carefully curated products to exceptional experiences, we believe in the power of elegant design and exceptional craftsmanship.
       </p>
       <p class="profile-text">
         Every item in our collection is handpicked to ensure it meets our high standards of craftsmanship and design.
@@ -643,14 +660,14 @@
     <div class="about-container">
       <h2 class="section-title">Join Us</h2>
       <p class="section-subtitle">
-        Be part of the Paladice experience. Subscribe to our newsletter for exclusive offers, new arrivals, and curated insights delivered straight to your inbox.
+        Be part of the Pāladice experience. Subscribe to our newsletter for exclusive offers, new arrivals, and curated insights delivered straight to your inbox.
       </p>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2026 Paladice. An Adicts Venture. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    <p>&copy; 2026 Pāladice. An Adicts Venture. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
   </footer>
 
   <script>
