@@ -1,6 +1,12 @@
 <!--
-Save the attached image as: assets/logo.png
-I couldn't access the binary image from this message, so please add the attached picture to the repository at the path above.
+Updated to include repository images. This file expects the following files to exist in the repository root (or adjust paths):
+- paladice logo.jpeg
+- Shop.jpeg
+- DP.png
+- Dish.png
+- Desginer.png
+
+If any filenames or locations are different, either upload the images at the repo root or update the src paths below.
 -->
 
 <!doctype html>
@@ -12,35 +18,122 @@ I couldn't access the binary image from this message, so please add the attached
   <style>
     :root{ --bg:#faf7f5; --card:#fff; --accent:#b37d67; --muted:#6b6b6b }
     html,body{height:100%;margin:0;font-family:Inter, Roboto, -apple-system, "Segoe UI", sans-serif;background:var(--bg);color:#222}
-    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:48px}
-    .card{background:var(--card);border-radius:14px;box-shadow:0 8px 30px rgba(18,18,18,0.08);padding:48px;max-width:920px;width:100%;text-align:center}
-    .logo{max-width:420px;width:60%;height:auto;margin:0 auto 18px;display:block}
-    h1{font-size:2.4rem;margin:0 0 6px;color:#222;letter-spacing:0.4px}
-    p.lead{margin:0;color:var(--muted);font-size:1.05rem}
-    .cta{margin-top:20px}
-    .btn{background:linear-gradient(180deg,var(--accent),#8f5f4a);color:white;padding:10px 18px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
-    footer{margin-top:26px;color:#9a9a9a;font-size:0.9rem}
-    @media (max-width:600px){.logo{width:80%}.card{padding:28px}}
+
+    /* Designer background covers the site */
+    .bg-cover{position:fixed;inset:0;z-index:0;overflow:hidden}
+    .bg-cover::before{content:"";position:absolute;inset:0;background-image:url('Desginer.png');background-size:cover;background-position:center;opacity:0.28;filter:saturate(0.95) hue-rotate(-6deg);transform:scale(1.03);}
+
+    .wrap{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:48px;z-index:1}
+    header{width:100%;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+    header img{max-width:420px;width:60%;height:auto;display:block}
+
+    .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(4px);border-radius:14px;box-shadow:0 8px 30px rgba(18,18,18,0.08);padding:28px;max-width:980px;width:100%;text-align:center;margin-top:18px}
+    h1{font-size:2.1rem;margin:6px 0;color:#222}
+    p.lead{margin:8px 0 18px;color:var(--muted);font-size:1.02rem}
+
+    /* Center DP image */
+    .center-dp{display:flex;align-items:center;justify-content:center;margin:18px 0}
+    .center-dp img{width:210px;height:210px;object-fit:cover;border-radius:50%;box-shadow:0 10px 30px rgba(12,12,12,0.15);border:6px solid rgba(255,255,255,0.6)}
+
+    /* Shop section */
+    .shop{display:flex;gap:18px;align-items:center;justify-content:center;margin-top:18px}
+    .shop img{width:140px;height:100px;object-fit:cover;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.08)}
+
+    /* Dish masterpiece */
+    .dish{margin-top:20px;display:flex;gap:16px;align-items:center;justify-content:center}
+    .dish img{width:260px;height:auto;border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,0.12)}
+    .dish .caption{max-width:360px;text-align:left;color:#333}
+
+    /* Copper pot and condensed milk droplet animation */
+    .choco-scene{position:relative;margin-top:28px;height:220px;display:flex;align-items:flex-end;justify-content:center}
+    .pot{width:260px;height:140px;border-radius:80px 80px 28px 28px/60px 60px 28px 28px;background:linear-gradient(180deg,#b36b2d,#874b29);box-shadow:0 12px 30px rgba(0,0,0,0.25) inset;position:relative;overflow:visible}
+    .pot::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:8px;width:86%;height:26px;border-radius:40px;background:linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0));filter:blur(6px);}
+
+    .condensed-drop{position:absolute;left:50%;transform:translateX(-50%);top:-60px;width:18px;height:18px;border-radius:50%;background:linear-gradient(180deg,#ffdca6,#ffd0a0 60%,#f3b66d);box-shadow:0 6px 18px rgba(0,0,0,0.25);animation:drop 1.6s infinite ease-in-out;z-index:3}
+    .drip{position:absolute;left:50%;transform:translateX(-50%);bottom:30px;width:8px;height:40px;border-radius:8px;background:linear-gradient(180deg,#ffd8a9,#f0b06b);opacity:0.95;animation:drip 1.6s infinite ease-in-out;z-index:2}
+
+    @keyframes drop{
+      0%{top:-60px;transform:translateX(-50%) scale(0.75);opacity:0}
+      10%{opacity:1}
+      60%{top:54px;transform:translateX(-50%) scale(1.05)}
+      70%{top:68px;transform:translateX(-50%) scaleY(0.9)}
+      100%{top:78px;opacity:0}
+    }
+    @keyframes drip{
+      0%{height:6px;opacity:0}
+      30%{height:22px;opacity:0.9}
+      60%{height:44px;opacity:0.96}
+      100%{height:70px;opacity:0}
+    }
+
+    .footer-note{margin-top:18px;color:#7a7a7a;font-size:0.95rem}
+
+    @media (max-width:720px){.card{padding:18px}.shop{flex-direction:column}.dish{flex-direction:column}.center-dp img{width:160px;height:160px}}
   </style>
 </head>
 <body>
+  <div class="bg-cover" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="card">
-      <!-- Put the provided image file at assets/logo.png -->
-      <img src="assets/logo.png" alt="Paladice logo" class="logo" onerror="this.style.display='none'" />
+    <header>
+      <!-- paladice logo as header -->
+      <img src="paladice%20logo.jpeg" alt="Paladice logo" onerror="this.style.display='none'" />
+    </header>
 
-      <!-- Fallback heading in case the image isn't present -->
-      <h1>Paladice</h1>
-      <p class="lead">A simple placeholder homepage. Replace this content with your site copy.</p>
+    <main class="card" role="main">
+      <h1>Welcome to Paladice</h1>
+      <p class="lead">paladice.com — an Adicts venture project. Below are highlights and visuals from our collection.</p>
 
-      <div class="cta">
-        <button class="btn" onclick="alert('Welcome to Paladice!')">Explore</button>
-      </div>
+      <!-- DP centered -->
+      <section class="center-dp" aria-label="Profile">
+        <img src="DP.png" alt="Profile DP" />
+      </section>
 
-      <footer>
-        Tip: Save the attached picture as <code>assets/logo.png</code> so it appears above.
-      </footer>
-    </div>
+      <!-- Shop mention -->
+      <section class="shop" aria-label="Shop highlights">
+        <div>
+          <img src="Shop.jpeg" alt="Shop preview" />
+        </div>
+        <div style="text-align:left;max-width:420px">
+          <h2 style="margin:0 0 6px">Our Shop</h2>
+          <p style="margin:0;color:var(--muted)">Explore curated items in Shop.jpeg — this is a featured product preview from our store.</p>
+        </div>
+      </section>
+
+      <!-- Dish masterpiece -->
+      <section class="dish" aria-label="Masterpiece">
+        <img src="Dish.png" alt="Our masterpiece dish" />
+        <div class="caption">
+          <h3 style="margin:0 0 6px">Our Masterpiece</h3>
+          <p style="margin:0;color:var(--muted)">Dish.png represents a signature creation — our master piece crafted with care and visual finesse.</p>
+        </div>
+      </section>
+
+      <!-- Chocolate-like condensed milk drop over copper pot -->
+      <section class="choco-scene" aria-label="Condensed milk pouring scene">
+        <div class="pot" role="img" aria-label="Copper pot">
+          <div class="condensed-drop" aria-hidden="true"></div>
+          <div class="drip" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <p class="footer-note">Designer background: Desginer.png (enlarged and covering the site). The condensed milk drop above is animated to highlight the pour into a copper pot inspired by Lindt-like chocolate aesthetics.</p>
+
+    </main>
+
   </div>
+
+  <script>
+    // Fallback: if image paths have been uploaded inside an `assets/` or `images/` folder, try those automatically.
+    document.querySelectorAll('img').forEach(img=>{
+      img.addEventListener('error', ()=>{
+        const src = img.getAttribute('src');
+        const tries = ['assets/'+src, 'images/'+src, 'assets/'+encodeURIComponent(src)];
+        for(const t of tries){
+          // attempt to set a new path — the browser will try to load it
+          if(!img.dataset.tried){ img.dataset.tried = 1; img.src = t; return; }
+        }
+      });
+    });
+  </script>
 </body>
 </html>
