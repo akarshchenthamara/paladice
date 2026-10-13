@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Simple SVG placeholder of a waffle cone to use until the final artwork is uploaded. -->
+<svg width="1200" height="1200" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ice cream cone">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#e6c79a" />
+      <stop offset="1" stop-color="#b88352" />
+    </linearGradient>
+  </defs>
+  <g transform="translate(10,6)">
+    <path d="M50 90 L10 20 L90 20 Z" fill="url(#g1)" stroke="#8b5a35" stroke-width="0.6"/>
+    <circle cx="50" cy="18" r="18" fill="#f6e6d5" stroke="#d1b79a" stroke-width="0.6"/>
+  </g>
+</svg>
