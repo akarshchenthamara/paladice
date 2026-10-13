@@ -48,6 +48,7 @@
       border:1px solid rgba(120,90,60,0.12);box-shadow:0 24px 64px rgba(52,33,19,0.12);
       backdrop-filter:blur(8px);
       max-width:860px;width:min(92%,860px);
+      position:relative; /* added so absolute cone can be positioned relative to this card */
     }
 
     .brand{
@@ -60,10 +61,10 @@
     }
 
     .join-btn{
-      display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:linear-gradient(135deg,#7d5638 0%,#5b3d2c 100%);color:#fff;text-decoration:none;font-weight:700;box-shadow:0 16px 36px rgba(96,64,39,0.2);border:1px solid rgba(255,255,255,0.12);
+      display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:linear-gradient(135deg,#7d5638 0%,#5b3d2c 100%);color:#fff;text-decoration:none;font-weight:700;
     }
 
-    .join-ico{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:999px;background:rgba(255,255,255,0.12);backdrop-filter:blur(6px);}
+    .join-ico{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:999px;background:rgba(255,255,255,0.12);backdrop-filter:blur(6px);} 
 
     .join-ico svg{width:22px;height:22px;display:block;fill:#fff}
 
@@ -75,6 +76,8 @@
       .card{padding:24px}
     }
   </style>
+  <!-- Paladice cone styles -->
+  <link rel="stylesheet" href="paladice-cone.css">
 </head>
 <body>
   <div class="wrap">
@@ -88,7 +91,16 @@
         <span>Join us</span>
       </a>
       <div class="hint">Click Join us to view our collections, story and contact</div>
+
+      <!-- Inserted cone wrapper to the right of the card content -->
+      <div class="cone-wrapper" aria-hidden="true">
+        <img src="assets/paladice-cone-placeholder.svg" alt="Paladice cone" class="cone-img">
+        <div class="eye left-eye"><div class="pupil"></div></div>
+        <div class="eye right-eye"><div class="pupil"></div></div>
+      </div>
     </div>
   </div>
+
+  <script src="paladice-cone.js" defer></script>
 </body>
 </html>
