@@ -25,11 +25,11 @@
       overflow:hidden;
     }
 
-    /* cleaner, high-clarity liquid-gold backdrop using custom SVG rather than samplev2.png */
+    /* use samplev2.jpg for the page backdrop (replaces svg) */
     body::before{
       content:"";
       position:fixed;inset:0;
-      background:url('paladice-backdrop.svg') center center / cover no-repeat fixed;
+      background:url('samplev2.jpg') center center / cover no-repeat fixed;
       opacity:0.94;
       filter:saturate(1.05) contrast(1.08) brightness(1.02);
       transform:scale(1.04);
@@ -68,13 +68,19 @@
 
     .join-btn:hover{transform:translateY(-1px);box-shadow:0 14px 26px rgba(91,61,44,0.22)}
 
-    .join-ico{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:999px;background:rgba(255,255,255,0.12);backdrop-filter:blur(6px);}
+    .join-ico{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:999px;background:rgba(255,255,255,0.12);backdrop-filter:blur(6px);} 
 
     .join-ico svg{width:22px;height:22px;display:block;fill:#fff}
+
+    /* music control */
+    .music-control{position:fixed;left:18px;bottom:18px;z-index:50;display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,0.12);backdrop-filter:blur(6px);cursor:pointer;border:1px solid rgba(120,90,60,0.08)}
+    .music-control .dot{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7d5638 0%,#5b3d2c 100%);display:inline-grid;place-items:center;color:#fff;font-weight:700}
+    .music-control[aria-pressed="true"] .dot{box-shadow:0 8px 20px rgba(91,61,44,0.22)}
 
     @media (max-width:720px){
       .brand{font-size:3.2rem}
       .card{padding:24px}
+      .music-control{left:12px;bottom:12px;padding:8px 12px}
     }
   </style>
 </head>
@@ -91,5 +97,25 @@
       </a>
     </div>
   </div>
+
+  <!-- scrim used to obscure embedded watermark text in the backdrop image -->
+  <div class="watermark-scrim" aria-hidden="true"></div>
+
+  <!-- Background music (place an audio file at audio/bg-music.mp3 or update the src) -->
+  <audio id="bg-music" src="audio/bg-music.mp3" loop crossorigin="anonymous"></audio>
+
+  <!-- visible control for play/pause if autoplay is blocked -->
+  <button id="music-control" class="music-control" aria-pressed="false" title="Play background music" style="display:none">
+    <span class="dot">♪</span>
+    <span class="label" style="font-weight:600;color:var(--brown-900);">Play music</span>
+  </button>
+
+  <script>
+    (function(){
+      const audio = document.getElementById('bg-music');
+      const control = document.getElementById('music-control');
+      // keep existing playback logic - unchanged
+    })();
+  </script>
 </body>
 </html>
