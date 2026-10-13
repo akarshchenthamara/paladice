@@ -25,7 +25,6 @@
       overflow:hidden;
     }
 
-    /* backdrop image */
     body::before{
       content:"";
       position:fixed;inset:0;
@@ -48,7 +47,7 @@
       border:1px solid rgba(120,90,60,0.12);box-shadow:0 24px 64px rgba(52,33,19,0.12);
       backdrop-filter:blur(8px);
       max-width:860px;width:min(92%,860px);
-      position:relative; /* added so absolute cone can be positioned relative to this card */
+      position:relative;
     }
 
     .brand{
@@ -61,14 +60,15 @@
     }
 
     .join-btn{
-      display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:linear-gradient(135deg,#7d5638 0%,#5b3d2c 100%);color:#fff;text-decoration:none;font-weight:700;
+      display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:linear-gradient(135deg,#7d5638 0%,#5b3d2c 100%);color:#fff;text-decoration:none;font-weight:700;box-shadow:0 10px 24px rgba(91,61,44,0.18);transition:transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .join-ico{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:999px;background:rgba(255,255,255,0.12);backdrop-filter:blur(6px);} 
+    .join-btn:hover{transform:translateY(-1px);box-shadow:0 14px 26px rgba(91,61,44,0.22)}
+
+    .join-ico{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:999px;background:rgba(255,255,255,0.12);backdrop-filter:blur(6px);}
 
     .join-ico svg{width:22px;height:22px;display:block;fill:#fff}
 
-    /* small hint for reference pattern */
     .hint{font-size:0.82rem;color:rgba(32,26,23,0.48);margin-top:14px}
 
     @media (max-width:720px){
@@ -76,7 +76,6 @@
       .card{padding:24px}
     }
   </style>
-  <!-- Paladice cone styles -->
   <link rel="stylesheet" href="paladice-cone.css">
 </head>
 <body>
@@ -86,13 +85,12 @@
       <div class="sub">An Adicts Venture</div>
       <a class="join-btn" href="details.html" aria-label="Join us — see more about Pāladice">
         <span class="join-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5v-3h2v3h-2zm0-7V7h2v2.5h-2z"/></svg>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5v-3h2v3h-2zm0-7V7h2v2.5h-2zm-6 3.5h2v3H7v-3zm0-7h2v3H7V7zm8 0h2v3h-2V7zm0 7h2v3h-2v-3z" /></svg>
         </span>
         <span>Join us</span>
       </a>
       <div class="hint">Click Join us to view our collections, story and contact</div>
 
-      <!-- Inserted cone wrapper to the right of the card content -->
       <div class="cone-wrapper" aria-hidden="true">
         <img src="assets/paladice-cone-placeholder.svg" alt="Paladice cone" class="cone-img">
         <div class="eye left-eye"><div class="pupil"></div></div>
