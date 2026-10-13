@@ -29,8 +29,31 @@
     .hero-subtopic{font-size:1.1rem;color:var(--brown-700);font-weight:600;margin-bottom:18px;line-height:1.6}
     .hero p{color:var(--muted);max-width:620px;line-height:1.85}
 
-    .image-shell{border-radius:26px;overflow:hidden;box-shadow:0 30px 80px rgba(66,41,22,0.18);border:1px solid rgba(124,89,61,0.12);background:radial-gradient(circle at 50% 25%, rgba(255,255,255,0.35), rgba(255,255,255,0.06) 45%, rgba(145,104,65,0.12) 100%);}
-    .image-shell img{width:100%;height:100%;object-fit:cover;display:block;filter:drop-shadow(0 18px 28px rgba(83,58,39,0.18));}
+    /* Improved image shell for plush, 3D mascot */
+    .image-shell{position:relative;border-radius:26px;padding:22px;overflow:visible;display:flex;align-items:center;justify-content:center;
+      background:radial-gradient(circle at 50% 25%, rgba(255,255,255,0.36), rgba(255,255,255,0.05) 35%, rgba(196,150,100,0.08) 100%);
+      box-shadow:0 30px 80px rgba(66,41,22,0.18), inset 0 -12px 40px rgba(255,245,230,0.04);border:1px solid rgba(124,89,61,0.12);
+      backdrop-filter: blur(2px);
+    }
+
+    /* Soft vignette + rim light */
+    .image-shell::after{content:'';position:absolute;inset:0;border-radius:26px;pointer-events:none;
+      background:radial-gradient(60% 60% at 50% 35%, rgba(255,245,230,0.06), rgba(0,0,0,0.06) 60%);
+      box-shadow: inset 0 -60px 120px rgba(0,0,0,0.08);
+    }
+
+    .image-shell img.mascot{width:100%;height:auto;max-width:760px;object-fit:contain;object-position:center 40%;display:block;
+      filter: drop-shadow(0 36px 48px rgba(34,20,12,0.36)) saturate(1.06) contrast(1.03);
+      transform:translateZ(0);
+      transition:transform 350ms cubic-bezier(.2,.8,.2,1), filter 250ms ease;
+      border-radius:12px; /* subtle rounding so edges blend into background */
+    }
+
+    /* slight lift on hover for interactive feel */
+    .image-shell:hover img.mascot{transform:translateY(-8px) scale(1.01);filter: drop-shadow(0 46px 64px rgba(34,20,12,0.38)) saturate(1.08) contrast(1.04)}
+
+    /* Optional cute shadow under mascot (pseudo-element) */
+    .image-shell .mascot-shadow{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);width:60%;height:28px;background:radial-gradient(ellipse at center, rgba(20,12,6,0.35), rgba(20,12,6,0.06));filter:blur(12px);border-radius:50%;pointer-events:none}
 
     .panel{background:rgba(255,255,255,0.14);border:1px solid rgba(102,71,47,0.14);border-radius:20px;padding:28px;backdrop-filter:blur(8px)}
 
@@ -48,12 +71,15 @@
 
     footer{padding:28px;text-align:center;color:rgba(32,26,23,0.6);border-top:1px solid rgba(92,63,43,0.08);background:rgba(255,255,255,0.06)}
 
+    /* Responsive adjustments */
     @media (max-width:960px){
       .hero{grid-template-columns:1fr}
       .shop-grid{grid-template-columns:1fr}
       .profile{flex-direction:row;gap:20px}
       .profile-image{width:140px;height:140px}
       .panel{padding:20px}
+      .image-shell{padding:16px}
+      .image-shell img.mascot{max-width:84%;}
     }
 
     @media (max-width:720px){
@@ -64,6 +90,7 @@
       .profile-content h2{font-size:1.25rem}
       .profile-content p{margin:0 auto;max-width:100%;font-size:1rem}
       .panel{padding:18px}
+      .image-shell img.mascot{max-width:92%;}
     }
 
     @media (min-width:1600px){
@@ -89,8 +116,9 @@
         <p>Discover our curated collections and refined essentials. Every piece is selected for craftsmanship, thoughtful detail, and enduring value. Explore the shop, learn our story, and get in touch.</p>
       </div>
       <div class="image-shell">
-        <!-- Pointing the hero to the uploaded root-level image file so it displays correctly -->
-        <img src="/image_bc6bxxx.jpg" alt="Pāladice mascot" />
+        <!-- Use relative path (no leading slash) so GitHub Pages and repo-root sites resolve correctly -->
+        <img src="image_bc6bxxx.jpg" alt="Pāladice mascot" class="mascot" />
+        <div class="mascot-shadow" aria-hidden="true"></div>
       </div>
     </section>
 
@@ -149,6 +177,5 @@
     &copy; 2026 Pāladice. An Adicts Venture. All rights reserved. | <a href="#">Privacy Policy</a>
   </footer>
 
-  <script src="paladice-cone.js"></script>
 </body>
 </html>
