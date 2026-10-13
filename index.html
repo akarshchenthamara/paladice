@@ -25,25 +25,20 @@
       overflow:hidden;
     }
 
-    /* backdrop image - increased visibility and cropped to avoid embedded watermark */
+    /* backdrop image */
     body::before{
       content:"";
       position:fixed;inset:0;
-      background:url('samplev2.png') center top / cover no-repeat fixed;
-      /* raised opacity and slightly boosted color to highlight the backdrop */
-      opacity:0.56;filter:saturate(1.02) contrast(1.08) brightness(1.06) blur(0.2px);
+      background:url('samplev2.png') center center / cover no-repeat fixed;
+      opacity:0.34;filter:saturate(0.9) contrast(1.06) brightness(0.96) blur(0.2px);
       transform:scale(1.06);
       pointer-events:none;z-index:0;
     }
 
-    /* soft overlay to keep foreground panels legible and to subtly obscure lower watermark */
     body::after{
       content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
-      background:linear-gradient(180deg,rgba(255,255,255,0.03) 0%,rgba(247,239,228,0.08) 60%,rgba(247,239,228,0.6) 100%);
+      background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(123,96,68,0.04) 40%,rgba(255,255,255,0.04));
     }
-
-    /* bottom scrim to hide embedded watermark text in the image (HOME OF DECADENCE) */
-    .watermark-scrim{position:fixed;left:0;right:0;bottom:0;height:14vh;background:linear-gradient(transparent,rgba(247,239,228,0.72));pointer-events:none;z-index:1}
 
     .wrap{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center}
 
@@ -75,16 +70,9 @@
 
     .join-ico svg{width:22px;height:22px;display:block;fill:#fff}
 
-    /* music control */
-    .music-control{position:fixed;left:18px;bottom:18px;z-index:50;display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,0.12);backdrop-filter:blur(6px);cursor:pointer;border:1px solid rgba(120,90,60,0.08)}
-    .music-control .dot{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7d5638 0%,#5b3d2c 100%);display:inline-grid;place-items:center;color:#fff;font-weight:700}
-    .music-control[aria-pressed="true"] .dot{box-shadow:0 8px 20px rgba(91,61,44,0.22)}
-
     @media (max-width:720px){
       .brand{font-size:3.2rem}
       .card{padding:24px}
-      .watermark-scrim{height:20vh}
-      .music-control{left:12px;bottom:12px;padding:8px 12px}
     }
   </style>
 </head>
@@ -101,115 +89,5 @@
       </a>
     </div>
   </div>
-
-  <!-- scrim used to obscure embedded watermark text in the backdrop image -->
-  <div class="watermark-scrim" aria-hidden="true"></div>
-
-  <!-- Background music (place an audio file at audio/bg-music.mp3 or update the src) -->
-  <audio id="bg-music" src="audio/bg-music.mp3" loop crossorigin="anonymous"></audio>
-
-  <!-- visible control for play/pause if autoplay is blocked -->
-  <button id="music-control" class="music-control" aria-pressed="false" title="Play background music" style="display:none">
-    <span class="dot">♪</span>
-    <span class="label" style="font-weight:600;color:var(--brown-900);">Play music</span>
-  </button>
-
-  <script>
-    (function(){
-      const audio = document.getElementById('bg-music');
-      const control = document.getElementById('music-control');
-      const STORAGE_KEY = 'paladice_music_state_v1';
-      let saveTimer = null;
-
-      function saveState(){
-        try{
-          const state = { playing: !audio.paused && !audio.muted, time: audio.currentTime || 0 };
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        } catch(e){/* ignore */}
-      }
-
-      function restoreState(){
-        try{
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if(!raw) return null;
-          return JSON.parse(raw);
-        }catch(e){return null}
-      }
-
-      function showControl(){
-        control.style.display = 'inline-flex';
-      }
-
-      function updateControl(){
-        const playing = !audio.paused && !audio.muted;
-        control.setAttribute('aria-pressed', String(playing));
-        control.querySelector('.label').textContent = playing ? 'Pause music' : 'Play music';
-      }
-
-      // attempt to autoplay; fall back to muted autoplay; if both blocked, show control
-      function attemptPlay(){
-        const attempt = audio.play();
-        if(attempt !== undefined){
-          attempt.then(()=>{
-            // played successfully
-            audio.muted = false; // ensure audible
-            updateControl();
-          }).catch(()=>{
-            // try muted autoplay (some browsers allow muted autoplay)
-            audio.muted = true;
-            audio.play().then(()=>{
-              // playing muted — unmute if user interacts later
-              updateControl();
-            }).catch(()=>{
-              // autoplay blocked, show control for user to start
-              showControl();
-            });
-          });
-        } else {
-          // older browsers
-          showControl();
-        }
-      }
-
-      document.addEventListener('DOMContentLoaded', ()=>{
-        const state = restoreState();
-        if(state && typeof state.time === 'number'){
-          // wait until metadata loaded to set currentTime
-          audio.addEventListener('loadedmetadata', ()=>{ try{ if(state.time < audio.duration) audio.currentTime = state.time; }catch(e){} });
-        }
-
-        // start autoplay attempt
-        attemptPlay();
-
-        // save periodically
-        audio.addEventListener('timeupdate', ()=>{
-          if(saveTimer) return;
-          saveTimer = setTimeout(()=>{ saveState(); saveTimer = null; }, 1000);
-        });
-
-        // show control if user interaction is required
-        control.addEventListener('click', ()=>{
-          if(audio.paused){
-            audio.muted = false;
-            audio.play().catch(()=>{});
-          } else {
-            audio.pause();
-          }
-          updateControl();
-          saveState();
-        });
-
-        // expose keyboard access (Space toggles when focused)
-        control.addEventListener('keydown', (e)=>{ if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); control.click(); } });
-
-        // ensure state saved on page hide/unload
-        window.addEventListener('beforeunload', saveState);
-        document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'hidden') saveState(); });
-
-        // if autoplay was blocked, reveal control so user can start music
-        setTimeout(()=>{ if(audio.paused) showControl(); updateControl(); }, 800);
-      });
-    })();
-  </script>
 </body>
 </html>
