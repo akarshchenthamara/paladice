@@ -12,12 +12,8 @@
     html{scroll-behavior:smooth}
     body{font-family:'Inter',system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--muted);min-height:100vh;position:relative;background:linear-gradient(135deg,#f7efe4 0%,#e9d8b7 28%,#d7b995 58%,#efe0c7 100%)}
 
-    /* backdrop - crop watermark and increase prominence */
-    body::before{content:'';position:fixed;inset:0;background:url('samplev2.png') center top / cover no-repeat fixed;opacity:0.56;filter:saturate(1.02) contrast(1.08) brightness(1.06) blur(0.2px);transform:scale(1.04);pointer-events:none;z-index:0}
-    body::after{content:'';position:fixed;inset:0;background:linear-gradient(90deg,rgba(247,239,228,0.12),rgba(255,255,255,0.06));pointer-events:none;z-index:0}
-
-    /* scrim to cover the embedded watermark text near the bottom of the backdrop image */
-    .watermark-scrim{position:fixed;left:0;right:0;bottom:0;height:14vh;background:linear-gradient(transparent,rgba(247,239,228,0.72));pointer-events:none;z-index:1}
+    body::before{content:'';position:fixed;inset:0;background:url('paladice-backdrop.svg') center center / cover no-repeat fixed;opacity:0.96;filter:saturate(1.08) contrast(1.12) brightness(1.04);transform:scale(1.04);pointer-events:none;z-index:0}
+    body::after{content:'';position:fixed;inset:0;background:linear-gradient(90deg,rgba(247,239,228,0.18),rgba(255,255,255,0.1));pointer-events:none;z-index:0}
 
     nav{position:sticky;top:0;z-index:10;background:rgba(247,239,228,0.62);backdrop-filter:blur(14px);border-bottom:1px solid rgba(91,59,40,0.12)}
     .nav-container{max-width:1220px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:18px}
@@ -37,7 +33,6 @@
 
     .panel{background:rgba(255,255,255,0.14);border:1px solid rgba(102,71,47,0.14);border-radius:20px;padding:28px;backdrop-filter:blur(8px)}
 
-    /* About/profile layout */
     .profile{display:flex;gap:28px;align-items:center}
     .profile-image{width:180px;height:180px;border-radius:50%;overflow:hidden;border:8px solid rgba(255,255,255,0.42);box-shadow:0 14px 40px rgba(52,31,18,0.12);flex:0 0 auto}
     .profile-image img{width:100%;height:100%;object-fit:cover}
@@ -52,7 +47,6 @@
 
     footer{padding:28px;text-align:center;color:rgba(32,26,23,0.6);border-top:1px solid rgba(92,63,43,0.08);background:rgba(255,255,255,0.06)}
 
-    /* Responsive adjustments */
     @media (max-width:960px){
       .hero{grid-template-columns:1fr}
       .shop-grid{grid-template-columns:1fr}
@@ -69,18 +63,12 @@
       .profile-content h2{font-size:1.25rem}
       .profile-content p{margin:0 auto;max-width:100%;font-size:1rem}
       .panel{padding:18px}
-      .watermark-scrim{height:20vh}
     }
 
     @media (min-width:1600px){
       main{max-width:1400px}
       .profile-image{width:220px;height:220px}
     }
-
-    /* music control (shared styles) */
-    .music-control{position:fixed;left:18px;bottom:18px;z-index:50;display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,0.12);backdrop-filter:blur(6px);cursor:pointer;border:1px solid rgba(120,90,60,0.08)}
-    .music-control .dot{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7d5638 0%,#5b3d2c 100%);display:inline-grid;place-items:center;color:#fff;font-weight:700}
-    .music-control[aria-pressed="true"] .dot{box-shadow:0 8px 20px rgba(91,61,44,0.22)}
   </style>
 </head>
 <body>
@@ -155,94 +143,9 @@
     </section>
   </main>
 
-  <!-- Background music (place an audio file at audio/bg-music.mp3 or update the src) -->
-  <audio id="bg-music" src="audio/bg-music.mp3" loop crossorigin="anonymous"></audio>
-
-  <!-- visible control for play/pause if autoplay is blocked -->
-  <button id="music-control" class="music-control" aria-pressed="false" title="Play background music" style="display:none">
-    <span class="dot">♪</span>
-    <span class="label" style="font-weight:600;color:var(--brown-900);">Play music</span>
-  </button>
-
-  <!-- scrim used to obscure embedded watermark text in the backdrop image -->
-  <div class="watermark-scrim" aria-hidden="true"></div>
-
   <footer>
     &copy; 2026 Pāladice. An Adicts Venture. All rights reserved. | <a href="#">Privacy Policy</a>
   </footer>
 
-  <script>
-    (function(){
-      const audio = document.getElementById('bg-music');
-      const control = document.getElementById('music-control');
-      const STORAGE_KEY = 'paladice_music_state_v1';
-      let saveTimer = null;
-
-      function saveState(){
-        try{
-          const state = { playing: !audio.paused && !audio.muted, time: audio.currentTime || 0 };
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        } catch(e){/* ignore */}
-      }
-
-      function restoreState(){
-        try{
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if(!raw) return null;
-          return JSON.parse(raw);
-        }catch(e){return null}
-      }
-
-      function showControl(){
-        control.style.display = 'inline-flex';
-      }
-
-      function updateControl(){
-        const playing = !audio.paused && !audio.muted;
-        control.setAttribute('aria-pressed', String(playing));
-        control.querySelector('.label').textContent = playing ? 'Pause music' : 'Play music';
-      }
-
-      function attemptPlay(){
-        const attempt = audio.play();
-        if(attempt !== undefined){
-          attempt.then(()=>{
-            audio.muted = false;
-            updateControl();
-          }).catch(()=>{
-            audio.muted = true;
-            audio.play().then(()=>{ updateControl(); }).catch(()=>{ showControl(); });
-          });
-        } else { showControl(); }
-      }
-
-      document.addEventListener('DOMContentLoaded', ()=>{
-        const state = restoreState();
-        if(state && typeof state.time === 'number'){
-          audio.addEventListener('loadedmetadata', ()=>{ try{ if(state.time < audio.duration) audio.currentTime = state.time; }catch(e){} });
-        }
-
-        attemptPlay();
-
-        audio.addEventListener('timeupdate', ()=>{
-          if(saveTimer) return;
-          saveTimer = setTimeout(()=>{ saveState(); saveTimer = null; }, 1000);
-        });
-
-        control.addEventListener('click', ()=>{
-          if(audio.paused){ audio.muted = false; audio.play().catch(()=>{}); } else { audio.pause(); }
-          updateControl();
-          saveState();
-        });
-
-        control.addEventListener('keydown', (e)=>{ if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); control.click(); } });
-
-        window.addEventListener('beforeunload', saveState);
-        document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'hidden') saveState(); });
-
-        setTimeout(()=>{ if(audio.paused) showControl(); updateControl(); }, 800);
-      });
-    })();
-  </script>
 </body>
 </html>
