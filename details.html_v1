@@ -72,7 +72,8 @@
 
     .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px}
     .shop-card{border-radius:14px;overflow:hidden;background:rgba(255,255,255,0.16);padding:0;border:1px solid rgba(98,67,45,0.12)}
-    .shop-card img{width:100%;height:220px;object-fit:cover;display:block}
+    /*.shop-card img{width:100%;height:220px;object-fit:cover;display:block}*/
+    .shop-card img{ width: 100%; height: auto; display: block; object-fit: contain; background-color: transparent; border-radius: 12px; }
     .shop-card .content{padding:16px}
     .shop-card h3{font-family:'Playfair Display',serif;margin-bottom:8px;color:var(--brown-900)}
     .shop-card p{color:var(--muted);font-size:0.95rem}
