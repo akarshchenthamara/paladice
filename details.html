@@ -23,37 +23,45 @@
 
     main{max-width:1220px;margin:36px auto;padding:0 22px 80px;position:relative;z-index:1}
 
-    .hero{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;min-height:520px}
+    /* move mascot slightly to the right by using asymmetric columns and aligning the image-shell to the end */
+    .hero{display:grid;grid-template-columns:1fr 0.88fr;gap:36px;align-items:center;min-height:520px}
     .hero .hero-sub{font-size:0.8rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--brown-700);font-weight:700;margin-bottom:18px}
     .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5vw,4.4rem);color:var(--brown-900);line-height:1;margin-bottom:18px}
     .hero-subtopic{font-size:1.1rem;color:var(--brown-700);font-weight:600;margin-bottom:18px;line-height:1.6}
     .hero p{color:var(--muted);max-width:620px;line-height:1.85}
 
     /* Improved image shell for plush, 3D mascot */
-    .image-shell{position:relative;border-radius:26px;padding:22px;overflow:visible;display:flex;align-items:center;justify-content:center;
-      background:radial-gradient(circle at 50% 25%, rgba(255,255,255,0.36), rgba(255,255,255,0.05) 35%, rgba(196,150,100,0.08) 100%);
-      box-shadow:0 30px 80px rgba(66,41,22,0.18), inset 0 -12px 40px rgba(255,245,230,0.04);border:1px solid rgba(124,89,61,0.12);
+    .image-shell{position:relative;border-radius:26px;padding:18px;overflow:visible;display:flex;align-items:center;justify-content:flex-end;
+      background:radial-gradient(circle at 60% 30%, rgba(255,244,220,0.55), rgba(255,235,200,0.22) 30%, rgba(196,150,100,0.10) 70%);
+      box-shadow:0 48px 120px rgba(80,48,20,0.28), inset 0 -18px 48px rgba(255,245,230,0.06);border:1px solid rgba(124,89,61,0.12);
       backdrop-filter: blur(2px);
     }
 
-    /* Soft vignette + rim light */
-    .image-shell::after{content:'';position:absolute;inset:0;border-radius:26px;pointer-events:none;
-      background:radial-gradient(60% 60% at 50% 35%, rgba(255,245,230,0.06), rgba(0,0,0,0.06) 60%);
-      box-shadow: inset 0 -60px 120px rgba(0,0,0,0.08);
+    /* stronger warm glow behind the mascot */
+    .image-shell::before{content:'';position:absolute;left:50%;top:32%;transform:translate(-6%,-32%);width:68%;height:68%;border-radius:50%;pointer-events:none;
+      background:radial-gradient(circle at 45% 35%, rgba(255,218,150,0.45), rgba(255,200,120,0.16) 40%, rgba(255,160,60,0.06) 70%);
+      filter:blur(28px);mix-blend-mode:screen;opacity:0.95;
     }
 
-    .image-shell img.mascot{width:100%;height:auto;max-width:760px;object-fit:contain;object-position:center 40%;display:block;
-      filter: drop-shadow(0 36px 48px rgba(34,20,12,0.36)) saturate(1.06) contrast(1.03);
-      transform:translateZ(0);
+    /* Soft vignette + rim light (overlay) */
+    .image-shell::after{content:'';position:absolute;inset:0;border-radius:26px;pointer-events:none;
+      background:radial-gradient(60% 60% at 52% 35%, rgba(255,245,230,0.06), rgba(0,0,0,0.06) 60%);
+      box-shadow: inset 0 -60px 120px rgba(0,0,0,0.06);
+    }
+
+    /* make the mascot more compact and slightly shifted right (translateX) */
+    .image-shell img.mascot{width:100%;height:auto;max-width:520px;object-fit:cover;object-position:center 55%;display:block;
+      filter: drop-shadow(0 48px 64px rgba(34,20,12,0.46)) saturate(1.12) contrast(1.08) brightness(1.03);
+      transform:translateZ(0) translateX(6%);
       transition:transform 350ms cubic-bezier(.2,.8,.2,1), filter 250ms ease;
-      border-radius:12px; /* subtle rounding so edges blend into background */
+      border-radius:10px; /* subtle rounding so edges blend into background */
     }
 
     /* slight lift on hover for interactive feel */
-    .image-shell:hover img.mascot{transform:translateY(-8px) scale(1.01);filter: drop-shadow(0 46px 64px rgba(34,20,12,0.38)) saturate(1.08) contrast(1.04)}
+    .image-shell:hover img.mascot{transform:translateY(-8px) translateX(6%) scale(1.012);filter: drop-shadow(0 60px 86px rgba(34,20,12,0.5)) saturate(1.14) contrast(1.09)}
 
-    /* Optional cute shadow under mascot (pseudo-element) */
-    .image-shell .mascot-shadow{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);width:60%;height:28px;background:radial-gradient(ellipse at center, rgba(20,12,6,0.35), rgba(20,12,6,0.06));filter:blur(12px);border-radius:50%;pointer-events:none}
+    /* denser, more blurred shadow under mascot */
+    .image-shell .mascot-shadow{position:absolute;left:60%;bottom:6px;transform:translateX(-50%);width:56%;height:36px;background:radial-gradient(ellipse at center, rgba(20,12,6,0.46), rgba(20,12,6,0.08));filter:blur(18px);border-radius:50%;pointer-events:none}
 
     .panel{background:rgba(255,255,255,0.14);border:1px solid rgba(102,71,47,0.14);border-radius:20px;padding:28px;backdrop-filter:blur(8px)}
 
@@ -72,14 +80,20 @@
     footer{padding:28px;text-align:center;color:rgba(32,26,23,0.6);border-top:1px solid rgba(92,63,43,0.08);background:rgba(255,255,255,0.06)}
 
     /* Responsive adjustments */
+    @media (max-width:1120px){
+      .hero{grid-template-columns:1fr 0.98fr}
+      .image-shell img.mascot{max-width:460px}
+    }
+
     @media (max-width:960px){
       .hero{grid-template-columns:1fr}
       .shop-grid{grid-template-columns:1fr}
       .profile{flex-direction:row;gap:20px}
       .profile-image{width:140px;height:140px}
       .panel{padding:20px}
-      .image-shell{padding:16px}
-      .image-shell img.mascot{max-width:84%;}
+      .image-shell{padding:12px;justify-content:center}
+      .image-shell img.mascot{max-width:72%;transform:none}
+      .image-shell .mascot-shadow{left:50%}
     }
 
     @media (max-width:720px){
@@ -91,11 +105,13 @@
       .profile-content p{margin:0 auto;max-width:100%;font-size:1rem}
       .panel{padding:18px}
       .image-shell img.mascot{max-width:92%;}
+      .image-shell .mascot-shadow{left:50%;width:64%;height:26px;filter:blur(12px)}
     }
 
     @media (min-width:1600px){
       main{max-width:1400px}
       .profile-image{width:220px;height:220px}
+      .image-shell img.mascot{max-width:860px}
     }
   </style>
 </head>
@@ -115,7 +131,7 @@
         <p class="hero-subtopic">refined craft &amp; thoughtful design • Discover our curated collections</p>
         <p>Discover our curated collections and refined essentials. Every piece is selected for craftsmanship, thoughtful detail, and enduring value. Explore the shop, learn our story, and get in touch.</p>
       </div>
-      <div class="image-shell">
+      <div class="image-shell" aria-hidden="false">
         <!-- Use relative path (no leading slash) so GitHub Pages and repo-root sites resolve correctly -->
         <img src="image_bc6bxxx.jpg" alt="Pāladice mascot" class="mascot" />
         <div class="mascot-shadow" aria-hidden="true"></div>
